@@ -116,7 +116,7 @@ def checkout(request):
         amount = request.POST.get('amount', '')
         email = request.POST.get('email', '')
         phone = request.POST.get('phone', '')
-        order = Orders(items_json=items_json, userId=user_id, name=name, email=email, phone=phone, amount=amount)
+        order = Orders(items_json=items_json, userId=user_id, name=name, email=email, phone=phone,amount=amount)
         order.save()
         update = OrderUpdate(order_id=order.order_id, update_desc="The Order has been Placed")
         update.save()
