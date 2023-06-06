@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.http import HttpResponseRedirect
 
-# I have created this file - Darshan
+# I have created this file - Dishank
 # from django.http import HttpResponse
 from .models import Product, Contact, Orders, OrderUpdate
 from django.contrib.auth.models import User
