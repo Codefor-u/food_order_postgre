@@ -184,7 +184,7 @@ def checkout(request):
         id = order.order_id
         if 'onlinePay' in request.POST:
              # Request paytm to transfer the amount to your account after payment by user
-           return render(request, 'shop/online.html', {'amount': amount})
+            return render(request, 'shop/online.html', {'amount': amount})
         elif 'cashOnDelivery' in request.POST:
             return render(request, 'shop/checkout.html', {'thank': thank, 'id': id})
     return render(request, 'shop/checkout.html')
