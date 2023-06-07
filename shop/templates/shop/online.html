@@ -12,11 +12,21 @@
 </head>
 
 <body>
-    <div class="d-flex">
-        <h1>Pay online via UPI</h1>
-        Please do not Refresh your page.
-        Payable Amount is Rs. 500
-        <a href=""></a>
+    <div class="container-fluid">
+        <div class="row" style="margin-top: 40px;">
+            <div class="col-xs-12 text-center">
+                <h1>Pay online via UPI</h1>
+                <p class="text-info">
+                    Please do not refresh your page..
+                </p>
+                <h4>
+                    Payable Amount is <br>
+                </h4>
+                <h1>₹{{Amount}}</h1>
+                <br>
+                <a class="btn btn-lg btn-success" href="upi://pay?pa=9799902001@paytm&pn=PaytmUser&mc=0000&mode=02&purpose=00&orgid=159761/">UPI</a>
+            </div>
+        </div>
     </div>
 </body>
 
