@@ -108,6 +108,40 @@ def search(request):
     return render(request, 'shop/search.html', darshan)
 
 
+# def checkout(request):
+#     if request.method == "POST":
+#         items_json = request.POST.get('itemsJson', '')
+#         user_id = request.POST.get('user_id', '')
+#         name = request.POST.get('name', '')
+#         amount = request.POST.get('amount', '')
+#         email = request.POST.get('email', '')
+#         phone = request.POST.get('phone', '')
+#         order = Orders(items_json=items_json, userId=user_id, name=name, email=email, phone=phone,amount=amount)
+#         order.save()
+#         update = OrderUpdate(order_id=order.order_id, update_desc="The Order has been Placed")
+#         update.save()
+#         thank = True
+#         id = order.order_id
+#         if 'onlinePay' in request.POST:
+#             # Request paytm to transfer the amount to your account after payment by user
+#             darshan_dict = {
+
+#                 'MID': 'WorldP64425807474247',  # Your-Merchant-Id-Here
+#                 'ORDER_ID': str(order.order_id),
+#                 'TXN_AMOUNT': str(amount),
+#                 'CUST_ID': email,
+#                 'INDUSTRY_TYPE_ID': 'Retail',
+#                 'WEBSITE': 'WEBSTAGING',
+#                 'CHANNEL_ID': 'WEB',
+#                 'CALLBACK_URL': 'http://127.0.0.1:8000/shop/handlerequest/',
+
+#             }
+#             darshan_dict['CHECKSUMHASH'] = Checksum.generate_checksum(darshan_dict, MERCHANT_KEY)
+#             return render(request, 'shop/paytm.html', {'darshan_dict': darshan_dict})
+#         elif 'cashOnDelivery' in request.POST:
+#             return render(request, 'shop/checkout.html', {'thank': thank, 'id': id})
+#     return render(request, 'shop/checkout.html')
+
 def checkout(request):
     if request.method == "POST":
         items_json = request.POST.get('itemsJson', '')
@@ -115,8 +149,12 @@ def checkout(request):
         name = request.POST.get('name', '')
         amount = request.POST.get('amount', '')
         email = request.POST.get('email', '')
+        address = request.POST.get('address1', '') + " " + request.POST.get('address2', '')
+        city = request.POST.get('city', '')
+        state = request.POST.get('state', '')
+        zip_code = request.POST.get('zip_code', '')
         phone = request.POST.get('phone', '')
-        order = Orders(items_json=items_json, userId=user_id, name=name, email=email, phone=phone,amount=amount)
+        order = Orders(items_json=items_json, userId=user_id, name=name, email=email, address=address, city=city, state=state, zip_code=zip_code, phone=phone, amount=amount)
         order.save()
         update = OrderUpdate(order_id=order.order_id, update_desc="The Order has been Placed")
         update.save()
@@ -124,23 +162,11 @@ def checkout(request):
         id = order.order_id
         if 'onlinePay' in request.POST:
             # Request paytm to transfer the amount to your account after payment by user
-            darshan_dict = {
-
-                'MID': 'WorldP64425807474247',  # Your-Merchant-Id-Here
-                'ORDER_ID': str(order.order_id),
-                'TXN_AMOUNT': str(amount),
-                'CUST_ID': email,
-                'INDUSTRY_TYPE_ID': 'Retail',
-                'WEBSITE': 'WEBSTAGING',
-                'CHANNEL_ID': 'WEB',
-                'CALLBACK_URL': 'http://127.0.0.1:8000/shop/handlerequest/',
-
-            }
-            darshan_dict['CHECKSUMHASH'] = Checksum.generate_checksum(darshan_dict, MERCHANT_KEY)
-            return render(request, 'shop/paytm.html', {'darshan_dict': darshan_dict})
+            return render(request, 'shop/online.html', {'amount': amount,})
         elif 'cashOnDelivery' in request.POST:
             return render(request, 'shop/checkout.html', {'thank': thank, 'id': id})
     return render(request, 'shop/checkout.html')
+
 
 
 def productView(request, myid):
